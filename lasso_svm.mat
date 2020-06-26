@@ -1,0 +1,52 @@
+
+/*******************************************************
+ * Copyright (C) 2019-2020 Eunjin Kim, Hwanho Cho <dmswlskim970606@gmail.com, nara9313@gmail.com>
+ * 
+ * This file is part of Radiomics Based on Thyroid Ultrasound Project.
+ * 
+ * Radiomics Based on Thyroid Ultrasound Project can not be copied and/or distributed without the express
+ * permission of MRK, JHS, HJP, HHC, EJK, SYH
+ *******************************************************/
+
+%% with MATLAB R2019b
+%% data load, cross validation, z-normalization
+X= data(:,3:62); % radiomics normalized_features(n=60),
+y= data(:,2); % binary-metastases(n=169)
+normalized_features = zscore(X(:,1:60));
+
+foldMax = 5;
+cvNum = 1;
+c = cvpartition(y,'kfold',foldMax); 
+
+while cvNum <= foldMax
+    trainingFeature = normalized_features(c.training(cvNum),:);
+    testFeature = normalized_features(c.test(cvNum),:);
+    trainingLabel = y(c.training(cvNum));
+    testLabel = y(c.test(cvNum));
+ 
+    %% Feature selection - Lasso
+    lasso = cvglmnet(trainingFeature, trainingLabel, 'binomial'); 
+    s(cvNum).selected_features = find(lasso.glmnet_fit.beta(:,(lasso.lambda == lasso.lambda_min)));
+    trainingFeature = trainingFeature(:,s(cvNum).selectednormalized_features);
+    testFeature = testFeature(:,s(cvNum).selectednormalized_features);
+ 
+    %% SVM
+    svmMdl = fitcsvm(trainingFeature,trainingLabel,'Prior','uniform');
+    [labelHatTr, scoreTr] = svmMdl.predict(trainingFeature);
+    [labelHatTs, scoreTs] = svmMdl.predict(testFeature);
+    radiomics_score(cvNum).score = scoreTs; 
+ 
+    %% model evaluation
+    [Xtr,Ytr,Ttr,AUCtr(cvNum)] = perfcurve(trainingLabel,scoreTr(:,2),1);
+    [Xts,Yts,Tts,AUCts(cvNum)] = perfcurve(testLabel,scoreTs(:,2),1);
+    conMat_train = confusionmat(trainingLabel, labelHatTr);
+    ACC_train(cvNum) = (conMat_train(1,1)+conMat_train(2,2))/sum(conMat_train(:));
+    SENS_train(cvNum) = conMat_train(2,2)/(conMat_train(2,1)+conMat_train(2,2));
+    SPEC_train(cvNum) = conMat_train(1,1)/(conMat_train(1,1)+conMat_train(1,2));
+    conMat_test = confusionmat(testLabel, labelHatTs);
+    ACC_test(cvNum) = (conMat_test(1,1)+conMat_test(2,2))/sum(conMat_test(:));
+    SENS_test(cvNum) = conMat_test(2,2)/(conMat_test(2,1)+conMat_test(2,2));
+    SPEC_test(cvNum) = conMat_test(1,1)/(conMat_test(1,1)+conMat_test(1,2));
+    cvNum = cvNum + 1;
+end
+
