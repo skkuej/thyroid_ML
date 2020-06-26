@@ -8,7 +8,7 @@
  * permission of MRK, JHS, HJP, HHC, EJK, SYH
  *******************************************************/
 
-%% with MATLAB R2019b
+%% by MATLAB R2019b
 %% data load, cross validation, z-normalization
 X= data(:,3:62); % radiomics normalized_features(n=60),
 y= data(:,2); % binary-metastases(n=169)
