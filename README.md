@@ -1,4 +1,4 @@
-# thyroid_SVM
+# Thyroid_SVM
 ## thyroid, svm, machine learning, lasso, cross validation 
 ## using by matlab 
 
