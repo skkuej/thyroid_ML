@@ -30,13 +30,13 @@ Kwon MR, Shin JH, Park H, Cho H, Kim E, Hahn SY. Radiomics Based on Thyroid Ultr
 ### LICENSE
 /*******************************************************
 
- * Copyright (C) 2019-2020 Eunjin Kim, Hwanho Cho <dmswlskim970606@gmail.com, nara9313@gmail.com>
- * 
- * This file is part of Radiomics Based on Thyroid Ultrasound Project.
- * 
- * Radiomics Based on Thyroid Ultrasound Project can not be copied and/or distributed without the express
- * permission of MRK, JHS, HJP, HHC, EJK, SYH
- * 
+ Copyright (C) 2019-2020 Eunjin Kim, Hwanho Cho <dmswlskim970606@gmail.com, nara9313@gmail.com>
+ 
+ This file is part of Radiomics Based on Thyroid Ultrasound Project.
+ 
+ Radiomics Based on Thyroid Ultrasound Project can not be copied and/or distributed without the express
+ permission of MRK, JHS, HJP, HHC, EJK and SYH
+ 
  *******************************************************/
 
 ### Acknowledge
