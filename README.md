@@ -12,7 +12,7 @@ We extracted a total of 60 radiomics features derived from the first order, shap
 
 ### Study design
 <div align="center">
-  <img src="./overflow.png" width=420 alt="IMAGE ALT TEXT"></a>
+  <img src="./overall flow.png" width=420 alt="IMAGE ALT TEXT"></a>
 </div>
 
 #### Study Information
