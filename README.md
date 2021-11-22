@@ -1,6 +1,8 @@
 <h1 align="center">
-    <p>Prediction for distant metastasis in follicular thyroid carcinoma: A radiomics study based on thyroid ultrasound</p>
+    <p>Prediction for distant metastasis in follicular thyroid carcinoma:
+        A radiomics study based on thyroid ultrasound</p>
 </h1>
+
 ### key words : thyroid, svm, machine learning, lasso
 
 
